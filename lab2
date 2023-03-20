@@ -21,7 +21,7 @@ with open('subbav.txt', 'r') as f:
     if not file:
         print('Файл пуст')
         quit()
-    pattern = '\\s\d{' + str(k1) + ',' + str(k2) + '}\\s'
+    pattern = '\d{'+ str(k1) + ',' + str(k2) + '}'
     u = re.findall(pattern, file)
     for j in u:
         if (len(j) - 2 == k1) or (len(j) - 2 == k2):
