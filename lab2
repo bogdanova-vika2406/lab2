@@ -1,0 +1,43 @@
+#Натуральные числа. Выводит на экран числа, содержащие от К1 до К2 разрядов. 
+#Числа, содержащие К1 и К2 разрядов выводятся прописью.
+import re
+numbers = []
+k1 = int(input('Введите k1 '))
+k2 = int(input('Введите k2 '))
+k1_or_k2 = []  # числа с разрядами == к1 или к2
+k1_btw_k2 = []  # числа с разрядами между к1 и к2
+k1_k2 = []
+
+
+# перевод цифр пропись
+def to_words(n):
+    numeros = {0: 'ноль', 1: 'один', 2: 'два', 3: 'три', 4: 'четыре', 5: 'пять',
+         6: 'шесть', 7: 'семь', 8: 'восемь', 9: 'девять'}
+    return numeros.get(n)
+
+
+with open('subbav.txt', 'r') as f:
+    file = f.read()
+    if not file:
+        print('Файл пуст')
+        quit()
+    pattern = '\\s\d{' + str(k1) + ',' + str(k2) + '}\\s'
+    u = re.findall(pattern, file)
+    for j in u:
+        if (len(j) - 2 == k1) or (len(j) - 2 == k2):
+            k1_or_k2.append(j.strip())
+        else:
+            k1_btw_k2.append(j.strip())
+    if (not k1_btw_k2) and (not k1_or_k2):
+        print('Нет подходящих цифр')
+    else:
+        if k1_btw_k2:
+            print('Цифры содержащие от К1 до К2 разрядов:', *k1_btw_k2)
+        if k1_or_k2:
+            answer = []
+            for i in k1_or_k2:
+                a = ''
+                for j in i:
+                    a += to_words(int(j)) + ' '
+                answer.append(str(i) + ' : ' + a)
+            print('Цифры содержащие К1 и К2 разрядов:', *answer)
