@@ -24,7 +24,7 @@ with open('subbav.txt', 'r') as f:
     pattern = '\d{'+ str(k1) + ',' + str(k2) + '}'
     u = re.findall(pattern, file)
     for j in u:
-        if (len(j) - 2 == k1) or (len(j) - 2 == k2):
+        if (len(j) == k1) or (len(j) == k2):
             k1_or_k2.append(j.strip())
         else:
             k1_btw_k2.append(j.strip())
