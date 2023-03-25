@@ -14,19 +14,20 @@ def to_words(n):
 
 with open('test.txt', 'r') as f:
     file = f.read()
+    lines = file.split()
     if not file:
         print('Файл пуст')
         quit()
-    u = re.findall(r'\b[1234567890ABCDEF]{1,4}\b', file) 
-    for j in u:
-        if (len(j) == 1) or (len(j) == 4):
-            a = ''
-            for i in j:
-                a += to_words(i) + ' '
-            k1_or_k2.append(j.strip() + ' : ' + a)
-            k1_btw_k2.append(j.strip())
-        else:
-            k1_btw_k2.append(j.strip())
+    for j in lines:
+        if re.fullmatch(r'[1234567890ABCDEF]{1,4}', j):
+            if (len(j) == 1) or (len(j) == 4):
+                a = ''
+                for i in j:
+                    a += to_words(i) + ' '
+                k1_or_k2.append(j.strip() + ' : ' + a)
+                k1_btw_k2.append(j.strip())
+            else:
+                k1_btw_k2.append(j.strip())
     if (not k1_btw_k2) and (not k1_or_k2):
         print('Нет подходящих цифр')
     else:
